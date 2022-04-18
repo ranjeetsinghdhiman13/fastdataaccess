@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<querymap>
+       <tables-query>
+               <query>str</query>
+               <col-maps>
+                       <col-map>
+                               <app-col></app-col><db-col></db-col>
+                       </col-map>
+                       <col-map>
+                               <app-col></app-col><db-col></db-col>
+                       </col-map>
+                       .
+                       .
+                       .
+               </col-maps>
+       </tables-query>
+       <columns-query>
+               <query>str</query>
+               <col-maps>
+                       <col-map>
+                               <app-col></app-col><db-col></db-col>
+                       </col-map>
+                       <col-map>
+                               <app-col></app-col><db-col></db-col>
+                       </col-map>
+                       .
+                       .
+                       .
+               </col-maps>
+       </columns-query>
+       <refs-query>
+       </refs-query>
+       <indexes-query>
+       </indexes-query>
+       <views-query>
+       </views-query>
+       <procedures-query>
+       </procedures-query>
+</querymap>

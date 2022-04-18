@@ -1,0 +1,75 @@
+package $package;
+
+#foreach ( $attrubute in $class.getVariables() )
+import $attribute.getJavaTypeImportString();
+#end
+#foreach ( $method in $class.getMethods() )
+import $method.getJavaTypeImportString();
+#end
+
+/**
+ * $mainComment
+ * @author $author
+ *
+ */
+public class $class.getName()
+#if (!$class.getExtendsClassPath())
+	extends $class.getExtendsClassPath()
+#end
+{
+
+	//attributes of class
+	#foreach ( $attribute in $class.getAttributes() )
+	/**
+	 * $attribute.getName()
+	 */
+	private	#if($attribute.isStatic()) static #end	#if($attribute.isFinal()) final	#end	$attribute.getJavaType() $attribute.getName();
+	#end
+
+	//method definitions
+	#foreach ( $method in $class.getMethods() )
+	public 	#if($method.isStatic())	static	#end	#if($method.isFinal())	final	#end	$method.getJavaType() get$method.getName()(
+		#foreach ( $param in $method.getParams() )	$param.getJavaType() $param.getName(),
+		#end
+		) 
+		#if (!$method.isThrows()) throws #foreach ( $throws in $method.getThrows() ) $throws.getJavaType(),	#end
+		#end
+		{
+		$method.getBody()
+	}
+	#end
+		
+	//toString
+	@Override
+	public String toString() {
+		StringBuffer ret = new StringBuffer();
+		#foreach ( $attrubute in $attribute )
+			ret.append(get$attribute.getCapitalisedName()() + ", ");
+		#end
+		return ret.toString();
+	}
+
+	//Getters and setters section for instance variables
+	#foreach ( $attribute in $class.getAttributes() )
+	#if ($attribute.isHasGetter())
+	/**
+	 * Get the value of $attribute.getName()
+	 * @return $attribute.getJavaType() $attribute.getName()
+	 */
+	public $attribute.getJavaType() get$attribute.getCapitalisedName()() {
+		return $attribute.getName();
+	}
+	#end
+	
+	#if ($attribute.isHasSetter())
+	/**
+	 * Set the value of $attribute.getName()
+	 * @param $attribute.getName()
+	 */
+	public void set$attribute.getCapitalisedName()(int $attribute.getName()) {
+		this.$attribute.getName() = $attribute.getName();
+	}
+	#end
+	#end
+
+}
